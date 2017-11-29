@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+body {margin:0;}
+
+.topnav {
+  overflow: hidden;
+  background-color: #C85058;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: "Verdana", Verdana, Sans-Serif;
+}
+
+.topnav a:hover {
+  background-color: #D47678;
+  color: white;
+}
+
+.topnav a.active {
+    background-color: #D47678;
+    color: white;
+}
+body {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+#tb1 {
+  color:#687fae;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#t1{
+  margin-right:0px;
+  margin-left:0px;
+}
+
+
+#graphoutput
+{
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  color: #16387c;
+}
+
+#graphinput
+{
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  color: #16387c;
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  
+  <a href=Workoffthis.html>Back to Home</a>
+  <a href=fPeriod.html>Periodic Table</a>
+  <a href=fBal.html>Balancing Chemical Equations</a>
+  
+</div>
+
+<div style="padding-left:50px">
+
+ 
+</div>
+
+
+<canvas id="myCanvas" width="750" height="350" style="border:7px solid #d3d3d3;" ></canvas>
+  
+  
+  <script>
+  
+ var c=document.getElementById("myCanvas");
+ var ctx=c.getContext("2d");
+
+
+function graph() {
+  if (document.form.R.value !== "" && document.form.O.value !== "" && document.form.P.value !=="")
+    {
+      var r = 2000 / document.form.R.value;
+      var p = 2000 / document.form.P.value;
+      
+      var c=document.getElementById("myCanvas");
+      var ctx=c.getContext("2d");
+      var e = document.form.O.value;
+    
+      ctx.beginPath();
+      ctx.lineWidth=5;
+      ctx.strokeStyle = '#687fae';
+      ctx.moveTo(0,0);
+      ctx.lineTo(0,350);
+      ctx.lineTo(750,350);
+      ctx.moveTo(0,350);
+      ctx.moveTo(0,r);
+      ctx.lineTo(150,r);
+      ctx.lineTo(300,r-e);
+      ctx.lineTo(450,p);
+      ctx.lineTo(600,p);
+      ctx.stroke();
+      
+    }
+  
+}
+
+function clear1() {
+  document.form.R.value = "";
+  document.form.O.value = "";
+  document.form.P.value = "";
+  ctx.clearRect(0,0,750,350);}
+  </script>
+  
+  
+<form name="form" action='#top'>
+  <div id=graphinput>
+  <b>Graph Input:</b>
+  </div>
+  
+    <table align="center" id="tb1">
+    <tr>
+      <td>Energy of Reactants:</td>
+      <td><input type="text" name="R" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Reaction Energy:</td>
+      <td><input type="text" name="O" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Energy of Products:</td>
+      <td><input type="text" name="P" value="" size="20" /></td>
+    </tr>
+  
+    <tr>
+      <td></td>
+      <td><input type="button" value="Create Graph" onclick="graph()" />
+      <input type="button" value="Clear" onclick="clear1()" /></td>
+    </tr>
+   
+  </table>
+  <br> 
+  <div id="graphoutput">
+   <b>Graph Output:</b>
+   </div>
+  </form>
+
+
+</body>
+</html>

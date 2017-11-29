@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head><script src="element.js"></script>
+  
+<style>
+body {margin:0;}
+
+.topnav {
+  overflow: hidden;
+  background-color: #C85058;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: "Verdana", Verdana, Sans-Serif;
+}
+
+.topnav a:hover {
+  background-color: #D47678;
+  color: white;
+}
+
+.topnav a.active {
+    background-color: #D47678;
+    color: white;
+}
+#pmap{
+  border:7px solid #d3d3d3;
+  text-align: center;
+}
+
+body {
+  
+  color: #687fae;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  text-align:center;
+}
+
+#table
+{
+    margin-left: 200px;
+}
+
+#pic
+{
+ 
+  color:#16387c;
+}
+#pic2
+{
+  color:#16387c;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  
+  <a href=Workoffthis.html>Back to Home</a>
+  <a href=fBal.html>Balancing Chemical Equations</a>
+  <a href=fPot.html>Potential Energy Diagram</a>
+  
+</div>
+
+<div style="padding-left:50px">
+
+ 
+</div>
+
+
+<script>
+  class Element 
+{
+
+  constructor(symb, mMass)
+  { 
+    this.mMass = mMass;
+    this.symb = symb;
+  }
+
+}
+function elemS(sym, mmass) 
+{
+  let E = new Element(sym, mmass);
+  document.form.MM.value = mmass;
+  
+}
+
+
+function CVA() {
+  if (document.form.C.value === "")
+    document.form.C.value = document.form.A.value/document.form.V.value + " Moles/Liter";
+  if (document.form.V.value === "")
+    document.form.V.value = document.form.C.value*document.form.A.value + " Moles";
+  if (document.form.A.value === "")
+    document.form.A.value = document.form.V.value*document.form.C.value + " Liters";
+}
+
+function MolarConv() {
+  if(document.form.Ma.value!=="")
+  {document.form.Mo.value =Math.round( document.form.Ma.value/document.form.MM.value);
+    document.form.Pa.value=document.form.Ma.value/document.form.MM.value * Math.pow(6.0221409,23);
+    document.form.Vo.value=document.form.Ma.value/document.form.MM.value * 22.4;
+  }
+  
+  if(document.form.Mo.value!=="")
+  {document.form.Ma.value = document.form.Mo.value * document.form.MM.value;
+    document.form.Pa.value=document.form.Mo.value * Math.pow(6.0221409,23);
+    document.form.Vo.value=document.form.Mo.value * 22.4;
+  }
+  
+if(document.form.Pa.value!=="")
+  {document.form.Mo.value = document.form.Pa.value/Math.pow(6.0221409,23);
+    document.form.Ma.value=document.form.Pa.value/Math.pow(6.0221409,23) * document.form.MM.value;
+    document.form.Vo.value=document.form.Pa.value/Math.pow(6.0221409,23) * 22.4;
+  }
+  
+if(document.form.Vo.value!=="")
+  {document.form.Mo.value = document.form.Vo.value/22.4;
+    document.form.Pa.value=document.form.Vo.value/22.4 * Math.pow(6.0221409,23);
+    document.form.Ma.value=document.form.Vo.value/22.4 * document.form.MM.value;
+  }
+}
+</script>
+
+<img src="https://sciencenotes.org/wp-content/uploads/2017/02/KidsPeriodicTable2017.png" width="550" height="350" alt="Planets" usemap="#periodicTable" id="pmap">
+
+<map name="periodicTable" id="mapmap">
+  <area shape="circle" coords="33,48,11" alt="H" color = PURPLE href="javascript:elemS('H', '1');" >
+  <area shape="circle" coords="33,80,11" alt="Li" color = RED href="javascript:elemS('Li', 6.94 );" >
+  <area shape="circle" coords="33,110,11" alt="Na" color = RED href="javascript:elemS('Na', 22.9 );" >
+  <area shape="circle" coords="33,140,11" alt="K" color = RED href="javascript:elemS('K', 39.1 );" >
+  <area shape="circle" coords="33,170,11" alt="Rb" color = RED href="javascript:elemS('Rb', 85.468 );" >
+  
+  <area shape="circle" coords="63,80,11" alt="Be" color = ORANGE href="javascript:elemS('Be', 9);" >
+  <area shape="circle" coords="63,110,11" alt="Mg" color = ORANGE href="javascript:elemS('Mg',  24);" >
+  <area shape="circle" coords="63,140,11" alt="Ca" color = ORANGE href="javascript:elemS('Ca', 40 );" >
+  <area shape="circle" coords="63,170,11" alt="Sr" color = ORANGE href="javascript:elemS('Sr', 87.6 );" >
+
+<area shape="circle" coords="93,140,11" alt="Sc" color = ORANGE href="javascript:elemS('Sc', 44.9 );" >
+<area shape="circle" coords="123,140,11" alt="Ti" color = ORANGE href="javascript:elemS('Ti', 47.9 );" >
+<area shape="circle" coords="153,140,11" alt="V" color = ORANGE href="javascript:elemS('V', 50.1 );" >
+<area shape="circle" coords="183,140,11" alt="Cr" color = ORANGE href="javascript:elemS('Cr', 53.97);" >
+<area shape="circle" coords="213,140,11" alt="Mn" color = ORANGE href="javascript:elemS('Mn', 55.9 );" >
+<area shape="circle" coords="240,140,11" alt="Fe" color = ORANGE href="javascript:elemS('Fe', 55.23 );" >
+<area shape="circle" coords="271,140,11" alt="Co" color = ORANGE href="javascript:elemS('Co', 58.67 );" >
+<area shape="circle" coords="300,140,11" alt="Ni" color = ORANGE href="javascript:elemS('Ni', 63.1 );" >
+<area shape="circle" coords="327,140,11" alt="Cu" color = ORANGE href="javascript:elemS('Cu', 65.9 );" >
+<area shape="circle" coords="354,140,11" alt="Zn" color = ORANGE href="javascript:elemS('Zn', 44.8 );" >
+
+
+
+ <area shape="circle" coords="382,80,11" alt="B" href="javascript:elemS('B', 10.811);" >
+ <area shape="circle" coords="382,110,11" alt="Al" href="javascript:elemS('Al', 26.911);" >
+ <area shape="circle" coords="382,140,11" alt="Ga" href="javascript:elemS('Ga', 69.7);" >
+ 
+ <area shape="circle" coords="412,80,11" alt="C" href="javascript:elemS('C', 12.0);" >
+ <area shape="circle" coords="412,110,11" alt="Si" href="javascript:elemS('Si', 28.1);" >
+ <area shape="circle" coords="412,140,11" alt="Ge" href="javascript:elemS('Ge', 72.6);" >
+ 
+ <area shape="circle" coords="444,80,11" alt="N" href="javascript:elemS('N', 14.0);" >
+ <area shape="circle" coords="444,110,11" alt="P" href="javascript:elemS('P',30.9 );" >
+ <area shape="circle" coords="444,140,11" alt="As" href="javascript:elemS('As', 74.9);" >
+ 
+ <area shape="circle" coords="474,80,11" alt="O" href="javascript:elemS('O', 15.9);" >
+ <area shape="circle" coords="474,110,11" alt="S" href="javascript:elemS('S', 32.1);" >
+ <area shape="circle" coords="474,140,11" alt="Se" href="javascript:elemS('Se', 78.97);" >
+ 
+ <area shape="circle" coords="504,80,11" alt="F" href="javascript:elemS('F', 18.9);" >
+ <area shape="circle" coords="504,110,11" alt="Cl" href="javascript:elemS('Cl', 35.4);" >
+ <area shape="circle" coords="504,140,11" alt="Br" href="javascript:elemS('Br', 79.9);" >
+ 
+ <area shape="circle" coords="532,54,11" alt="He" href="javascript:elemS('He', 4.0);" >
+ <area shape="circle" coords="532,80,11" alt="Ne" href="javascript:elemS('Ne', 20.1);" >
+ <area shape="circle" coords="532,110,11" alt="Ar" href="javascript:elemS('Ar', 39.9);" >
+ <area shape="circle" coords="532,140,11" alt="Kr" href="javascript:elemS('Kr', 83.7);" >
+ 
+ 
+  
+</map>
+
+<br>
+<script>
+ 
+function clear2() {
+  document.form.C.value = "";
+  document.form.V.value = "";
+  document.form.A.value = "";
+}
+function clear3() {
+  document.form.Mo.value = "";
+  document.form.Ma.value = "";
+  document.form.MM.value = "";
+  document.form.Pa.value="";
+  document.form.Vo.value = "";
+}
+</script>
+
+
+  <form name="form" action='#top' id="table">
+ <b> <div id="pic">Molarity</div> </b>
+  <table>
+    <tr>
+      <td>Concentration of Solute (M) :</td>
+      <td><input type="text" name="C" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Amount of Solute (n) :</td>
+      <td><input type="text" name="A" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Volume of Solution (L) :</td>
+      <td><input type="text" name="V" value="" size="20" /></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td><input type="button" value="Calculate" onclick="CVA()" />
+      <input type="button" value="Clear" onclick="clear2()" /></td>
+    </tr>
+  </table>
+
+  <strong><div id ="pic2">Molar Conversions</div></strong>
+  <table>
+    <tr>
+      <td>Moles (n) :</td>
+      <td><input type="text" name="Mo" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Mass (g) :</td>
+      <td><input type="text" name="Ma" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Volume at STP (L):</td>
+      <td><input type="text" name="Vo" value="" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Particles:</td>
+      <td><input type="text" name="Pa" value="" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Molar Mass :</td>
+      <td><input type="text" id="MM" value="" size="20" /></td>
+    </tr>
+  
+  
+    <tr>
+      <td></td>
+      <td><input type="button" value="Calculate" onclick="MolarConv()" />
+      <input type="button" value="Clear" onclick="clear3()" /></td>
+    </tr>
+  </table>
+  </form>
+  
+</body>
