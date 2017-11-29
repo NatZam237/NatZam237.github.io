@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+head {margin:0;}
+
+.topnav {
+  overflow: hidden;
+  background-color: #C85058;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: "Verdana", Verdana, Sans-Serif;
+}
+
+.topnav a:hover {
+  background-color: #D47678;
+  color: white;
+}
+
+.topnav a.active {
+    background-color: grey;
+    color: white;
+}
+h1 {
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: #C85058;
+    text-align: center;
+    font-size: 38px;
+    text-shadow:
+   -1px -1px 0 #ff6666,  
+    1px -1px 0 #ff6666,
+    -1px 1px 0 #ff6666,
+     1px 1px 0 #ff6666;
+     
+}
+body {background-color: #FFFFFF;}
+
+p1 {
+   font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+   color: #687fae;
+   font-size: 23px;
+  
+}
+p2 {
+   font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+   color:#687fae;
+   font-size: 22px;
+  
+}
+p3 {
+   font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+   color: #16387c;
+   font-size: 30px;
+   text-shadow:
+  -1px -1px 0 white,  
+    1px -1px 0 white,
+    -1px 1px 0 white,
+     1px 1px 0 white;
+   
+}
+
+
+p4{
+   color:#16387c;
+   font-size: 20px;
+}
+
+p5{
+   color:#687fae;
+   font-size: 20px;
+}
+p7{
+   float: inherit;
+   
+}
+
+
+
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  
+	<a href=Workoffthis.html>Back to Home</a>
+	<a href=fPeriod.html>Periodic Table</a>
+	<a href=fPot.html>Potential Energy Diagram</a>
+  
+</div>
+
+<div style="padding-left:50px">
+<div style="margin:0.1">
+
+ 
+</div>
+
+
+
+<br>
+<p1>Input equation as such: Reactants -> Products. If multiple elements, separate with "+"</p1>
+<br>
+  <p2>  
+  <b>
+  ex. Al+Fe2O4->Fe+Al2O3
+  </b>
+  </p2>
+    <br>
+    <br>
+
+<input type="text" id="myText" value="" style="width:500px; height:60px;">
+
+
+
+<button name="subject" onclick="enter()">Enter</button>
+
+  
+
+<p id="demo"></p>
+<br>
+<p3>Balanced equation:</p3>
+<p style=color:#16387c ; id="p4">  </p>
+
+
+
+<script>
+function balanceEq(x) {
+	//get gcf here, will use later in Gauss Jordan (multiply all together)
+	gcf = 1;
+	arrOfNum = new Set(x.split(/\D+/g));
+	arrOfNum.delete("");
+	for (let i of arrOfNum) gcf *= parseInt(i);
+	
+	//separate the reactants from the products
+	left = x.split("->")[0].split("+");
+	righ = x.split("->")[1].split("+");
+	molecules = left.length + righ.length;
+	
+	//single out elements + delete them (not important in balancing equations)
+	elems = new Set(x.replace(/\d+|\+|->/g,"").match(/([A-Z][a-z]*)/g));
+	elems.delete("");
+	
+	//create reduced row echelon form array, by taking apart the coefficients and putting them in each row 
+	      //each molecule is a column, and has right coefficients inside
+	rrefArr = [];
+	for (let elem of elems) {
+		buildArr = [];
+		
+		for (let molecule of left) {
+			
+			index = molecule.indexOf(elem);
+			if (index == -1) buildArr.push(0);
+			else {
+				index += elem.length;
+				numberAfterElement = molecule.substring(index).match(/^\d+/g);
+				if (numberAfterElement === null) buildArr.push(1);
+				else buildArr.push(parseInt(numberAfterElement));
+			}
+		}
+		
+		for (let molecule of righ) {
+			index = molecule.indexOf(elem);
+			if (index == -1) buildArr.push(0);
+			else {
+				index += elem.length;
+				numberAfterElement = molecule.substring(index).match(/^\d+/g);
+				if (numberAfterElement === null) buildArr.push(-1);
+				else buildArr.push(parseInt(numberAfterElement)*(-1));
+			}
+		}
+		rrefArr.push(buildArr);
+	}
+	
+	//Gauss-Jordan algorithm starts, will go through augmented array until every spot has either a 0 or right coefficient
+	for (pivot=0;pivot<Math.min(molecules, elems.size);pivot++) {
+		
+		for (i=pivot;i<rrefArr.length;i++) {
+			row = rrefArr[i];
+			if (row[pivot] !== 0) {
+				workingOnThisRow = rrefArr.splice(rrefArr.indexOf(row), 1)[0];
+			}
+		}
+		
+		multiplyWhat = gcf / workingOnThisRow[pivot];
+		for (i=0;i<workingOnThisRow.length;i++) workingOnThisRow[i] *= multiplyWhat;
+		
+		for (let i in rrefArr) {
+			row = rrefArr[i];
+			if (row[pivot] !== 0) {
+				multiplyWhat = gcf / row[pivot];
+				for (j=0;j<row.length;j++) {
+					row[j] *= multiplyWhat;
+					row[j] -= workingOnThisRow[j];
+					row[j] /= multiplyWhat;
+				}
+				rrefArr[i]=row;
+			}
+		}
+	
+		rrefArr.splice(pivot, 0, workingOnThisRow);
+	}
+	
+//if the size of elems/column at that point is 0/undefined it means it has no solution (not a real chemical equation/not entered correctly)
+	if (rrefArr[0][elems.size] === 0 || rrefArr[0][elems.size] === undefined) return "No Solution / Already Balanced";
+	
+	//created a method to calculate gcd (like earlier except modified)
+	gcf *= -1;
+	gcd_calc = function(a, b) {
+		if (!b) return a;
+		return gcd_calc(b, a%b);
+	};
+	coEffs = [];
+	gcd = gcf;
+	for (i=0;i<rrefArr.length;i++) {
+		num = rrefArr[i][molecules-1];
+		coEffs.push(num);
+		gcd = gcd_calc(gcd, num);
+	}
+	coEffs.push(gcf);
+	for (i=0;i<coEffs.length;i++) coEffs[i] /= gcd;
+	
+
+	out = "";
+	for (i=0;i<coEffs.length;i++) {
+		coEff = coEffs[i];
+		if (coEff != 1) out += coEff;
+		out += left.shift();
+		if (left.length === 0 && righ.length !== 0) {
+			out += "->";
+			left = righ;
+		} else if (i != coEffs.length-1) out += "+";
+	}
+	return out;
+}
+function enter() {
+    var x = document.getElementById("myText").value;
+    if(x != "")
+    {
+      document.getElementById("p4").innerHTML = balanceEq(x);
+      
+    }
+    
+}
+</script>
+</div>
+
+</body>
+
+</html>
