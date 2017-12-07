@@ -44,7 +44,7 @@ body {
 
 #table
 {
-    margin-left: 200px;
+    
 }
 
 #pic
@@ -64,7 +64,7 @@ body {
 
 <div class="topnav">
   
- 
+  <a href=Workoffthis.html>Back to Home</a>
   <a href=fBal.html>Balancing Chemical Equations</a>
   <a href=fPot.html>Potential Energy Diagram</a>
   
@@ -204,12 +204,33 @@ function clear3() {
 }
 </script>
 
+</body>
 
   <form name="form" action='#top' id="table">
-
+ <b> <div id="pic">Molarity</div> </b>
+  <table align="center" >
+    <tr>
+      <td>Concentration of Solute (M) :</td>
+      <td><input type="text" name="C" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Amount of Solute (n) :</td>
+      <td><input type="text" name="A" size="20" /></td>
+    </tr>
+    <tr>
+      <td>Volume of Solution (L) :</td>
+      <td><input type="text" name="V" value="" size="20" /></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td><input type="button" value="Calculate" onclick="CVA()" />
+      <input type="button" value="Clear" onclick="clear2()" /></td>
+    </tr>
+  </table>
 
   <strong><div id ="pic2">Molar Conversions</div></strong>
-  <table>
+  <table align="center" >
     <tr>
       <td>Moles (n) :</td>
       <td><input type="text" name="Mo" size="20" /></td>
@@ -237,6 +258,8 @@ function clear3() {
       <td><input type="button" value="Calculate" onclick="MolarConv()" />
       <input type="button" value="Clear" onclick="clear3()" /></td>
     </tr>
+ 
+
   </table>
   </form>
   
