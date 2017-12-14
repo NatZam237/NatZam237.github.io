@@ -96,9 +96,12 @@ function graph() {
       var e = document.form.O.value;
     
       ctx.beginPath();
-      ctx.font="15px Arial";
+     ctx.font="15px Arial";
+      ctx.strokeStyle='#687fae';
       ctx.textAlign="start"; 
-      ctx.fillText("Potential",300,100);
+      ctx.fillText("Potential Energy (J)",5,15);
+      ctx.textAlign="end"; 
+      ctx.fillText("Time of Reaction",740,340);
       ctx.lineWidth=5;
       ctx.strokeStyle = '#687fae';
       ctx.moveTo(0,0);
